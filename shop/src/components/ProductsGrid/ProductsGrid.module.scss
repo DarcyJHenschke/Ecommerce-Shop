@@ -1,0 +1,63 @@
+.ProductsGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 800px;
+}
+
+.Grid {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    flex-wrap: wrap;
+}
+
+.ButtonWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 120px;
+    height: 30px;
+
+    &__Button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 30px;
+        border-right: 1px solid lightgray;
+        &:hover {
+            background-color: lightgray;
+        }
+        &:active {
+            background-color: dodgerblue;
+        }
+    }
+}
+
+.Card {
+    width: 300px;
+    height: 375px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    margin: 10px;
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    &__Img {
+        width: 300px;
+        height: 300px;
+        border-radius: 10px;
+        background-color: bisque;
+    }
+
+    &__TextWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 10px;
+    }
+}

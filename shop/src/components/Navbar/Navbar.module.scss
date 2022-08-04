@@ -1,0 +1,26 @@
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color: #141414;
+    color: white;
+}
+
+.List {
+    width: 70vw;
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+    text-decoration: none;
+}
+
+.Span {
+    margin-left: 16px;
+    width: 300px;
+}
+
+.Item {
+    text-decoration: none;
+    all: unset;
+}

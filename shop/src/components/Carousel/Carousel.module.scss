@@ -1,0 +1,44 @@
+.Carousel {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.Image {
+    width: 100vw;
+    height: 40vh;
+    background: lightblue;
+}
+
+.ButtonLeft {
+    all: unset;
+    width: 25px;
+    height: 400px;
+    position: absolute;
+    top: 0%;
+    &:hover {
+        background-color: white;
+    }
+}
+.ButtonRight {
+    all: unset;
+    width: 25px;
+    height: 400px;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    &:hover {
+        background-color: white;
+    }
+}
+
+.Slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+}
+
+.SlideActive {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
