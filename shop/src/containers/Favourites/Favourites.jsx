@@ -20,7 +20,7 @@ const Favourites = ({ hats, setHats }) => {
             <h1>Favourites</h1>
             <div className={styles.Grid}>
                 {hats.map((hat) => (
-                    <ProductCard hat={hat} />
+                    <ProductCard key={hat.id} hat={hat} />
                 ))}
             </div>
         </section>

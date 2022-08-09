@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Products from "./containers/Products/Products";
 import ProductPage from "./containers/ProductPage";
 import Favourites from "./containers/Favourites/Favourites";
-import { getHats, getProductById, updateItem } from "./services/data";
+import { getHats } from "./services/data";
 import Cart from "./containers/Cart/Cart";
 function App() {
     const [items, setItems] = useState([]);
@@ -20,7 +20,6 @@ function App() {
     }, []);
 
     const [hats, setHats] = useState([]);
-    const [carousel, setCarousel] = useState([]);
 
     return (
         <>
