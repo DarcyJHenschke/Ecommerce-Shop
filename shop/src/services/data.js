@@ -37,3 +37,45 @@ export const getProductById = async (id) => {
     if (!product) throw new Error("Could not find user");
     return product;
 };
+
+export const favProduct = async (productId, bool) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(productId);
+    await docRef.update({ favourited: bool });
+};
+export const updateCartSmall = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "cart.Small": initialValue + 1 });
+};
+export const updateCartMedium = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "cart.Medium": initialValue + 1 });
+};
+export const updateCartLarge = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "cart.Large": initialValue + 1 });
+};
+export const updateQuantitySmall = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "quantity.Small": initialValue - 1 });
+};
+export const updateQuantityMedium = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "quantity.Medium": initialValue - 1 });
+};
+export const updateQuantityLarge = async (id, initialValue) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+
+    await docRef.update({ "quantity.Large": initialValue - 1 });
+};

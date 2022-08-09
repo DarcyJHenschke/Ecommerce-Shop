@@ -2,39 +2,106 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductById } from "../../services/data";
+import {
+    addCartItem,
+    favProduct,
+    getProductById,
+    updateCartSmall,
+    updateQuantitySmall,
+    updateCartMedium,
+    updateCartLarge,
+    updateQuantityMedium,
+    updateQuantityLarge,
+} from "../../services/data";
 import styles from "./ProductPage.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeartCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-const ProductPage = () => {
-    const [product, setProduct] = useState(null);
+const ProductPage = ({ items }) => {
+    const navigate = useNavigate();
+
     const { productId } = useParams();
-    console.log(productId);
+
     const id = productId;
 
+    const [item, setItem] = useState({});
+
     useEffect(() => {
-        getProductById(id).then(setProduct);
-    }, [id]);
+        setItem(items.find((item) => item.id == id));
+    }, [items, id]);
+
+    const [fav, setFav] = useState(false);
+
+    console.log(item);
+
+    const handleFav = () => {
+        setFav(!fav);
+    };
+
+    useEffect(() => {
+        const wrapper = async () => {
+            await favProduct(id, fav);
+        };
+        wrapper();
+    }, [fav]);
+
+    const favIcon = fav ? faHeartCircleCheck : faHeart;
+
+    const [size, setSize] = useState("Small");
+    const inputChange = (event) => {
+        setSize(event.target.value);
+    };
+
+    console.log(size);
+
+    const addToCart = async () => {
+        switch (size) {
+            case "Small":
+                if (item.quantity.Small <= 0) {
+                    alert("no stock in this size");
+                } else {
+                    updateCartSmall(id, item.cart.Small);
+                    updateQuantitySmall(id, item.quantity.Small);
+                }
+                break;
+            case "Medium":
+                if (item.quantity.Medium <= 0) {
+                    alert("no stock in this size");
+                } else {
+                    updateCartMedium(id, item.cart.Medium);
+                    updateQuantityMedium(id, item.quantity.Medium);
+                }
+                break;
+            case "Large":
+                if (item.quantity.Large <= 0) {
+                    alert("no stock in this size");
+                } else {
+                    updateCartLarge(id, item.cart.Large);
+                    updateQuantityLarge(id, item.quantity.Large);
+                }
+                break;
+            default:
+                alert("issue");
+        }
+    };
+
     return (
         <>
-            {product && (
+            {item && (
                 <div className={styles.ProductPage}>
                     <div className={styles.ImageWrapper}>
                         <img
                             className={styles.Image}
-                            src={product.image}
-                            alt={product.name}
+                            src={item.image}
+                            alt={item.name}
                         />
                     </div>
                     <div className={styles.TextWrapper}>
-                        <div className={styles.Heart}>
-                            <h2>{product.name}</h2>
-                            <span className={styles.Icon}>
-                                <FontAwesomeIcon icon={faHeart} size="2x" />
-                            </span>
-                        </div>
-                        <p className={styles.TextItems}>{product.price}</p>
+                        <h2>{item.name}</h2>
+                        <FontAwesomeIcon icon={favIcon} onClick={handleFav} />
+
+                        <p className={styles.TextItems}>{item.price}</p>
                         <p className={styles.TextItems}>
                             Lorem, ipsum dolor sit amet consectetur adipisicing
                             elit. Voluptatem deserunt corporis reprehenderit
@@ -42,36 +109,25 @@ const ProductPage = () => {
                             beatae quibusdam hic animi voluptate minus esse
                             eaque autem aspernatur, optio iste?
                         </p>
-                        <form className={styles.Form} action="">
+                        <form onChange={inputChange} className={styles.Form}>
                             <div className={styles.SelectWrapper}>
                                 <div className={styles.DropdownWrapper}>
                                     <label htmlFor="size">Size:</label>
-                                    <select
-                                        className={styles.Dropdown}
-                                        id="size"
-                                        name="size"
-                                    >
-                                        {product.size.map((item) => (
-                                            <option value={item}>{item}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className={styles.DropdownWrapper}>
-                                    <label htmlFor="quantity">Quantity:</label>
-                                    <select
-                                        className={styles.Dropdown}
-                                        id="quantity"
-                                        name="quantity"
-                                    >
-                                        {product.quantity.map((item) => (
-                                            <option value={item}>{item}</option>
-                                        ))}
+                                    <select name="size" id="size">
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
                                     </select>
                                 </div>
                             </div>
-                            <button className={styles.Button} type="submit">
+                            <button
+                                onClick={addToCart}
+                                className={styles.Button}
+                                type="submit"
+                            >
                                 <h3>Add to Cart</h3>
                             </button>
+                            {/* {size === "Small" && <p>{item.quantity.Small}</p>} */}
                         </form>
                     </div>
                 </div>
