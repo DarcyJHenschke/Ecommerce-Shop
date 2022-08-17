@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeartCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-const ProductPage = ({ items }) => {
+const ProductPage = ({ items, handleChange }) => {
     const navigate = useNavigate();
 
     const { productId } = useParams();
@@ -52,6 +52,10 @@ const ProductPage = ({ items }) => {
     const inputChange = (event) => {
         setSize(event.target.value);
     };
+
+    useEffect(() => {
+        
+    }, [size])
 
     console.log(size);
 

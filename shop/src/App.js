@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Products from "./containers/Products/Products";
 import ProductPage from "./containers/ProductPage";
 import Favourites from "./containers/Favourites/Favourites";
-import { getHats } from "./services/data";
+import { getHats, updateDocument } from "./services/data";
 import Cart from "./containers/Cart/Cart";
 function App() {
     const [items, setItems] = useState([]);
@@ -20,6 +20,12 @@ function App() {
     }, []);
 
     const [hats, setHats] = useState([]);
+
+    const handleChange = async (updatedRecord) => {
+        const { id, ...rest } = updatedRecord;
+        await updateDocument(id, rest);
+        getData();
+    };
 
     return (
         <>
@@ -41,6 +47,7 @@ function App() {
                                 hats={hats}
                                 setHats={setHats}
                                 items={items}
+                                handleChange={handleChange}
                             />
                         }
                     />

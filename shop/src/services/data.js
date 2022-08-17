@@ -79,3 +79,9 @@ export const updateQuantityLarge = async (id, initialValue) => {
 
     await docRef.update({ "quantity.Large": initialValue - 1 });
 };
+
+export const updateDocument = async (id, newDoc) => {
+    const collectionRef = firestore.collection("Hats");
+    const docRef = collectionRef.doc(id);
+    await docRef.update(newDoc);
+};
